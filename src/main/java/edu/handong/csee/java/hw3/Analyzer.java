@@ -124,6 +124,16 @@ public class Analyzer
 	
 	public int getNumberOfPatientsBetweenTwoDates(String date1, String date2)
 	{
+		int indexFrom, indexTo;
+		int i, j;
 		
+		indexFrom = Util.findIndex(this.data[0], date1);
+		indexTo = Util.findIndex(data[0], date2);
+		
+		for(i=indexFrom; i<=indexTo; i++)
+			for(j=0; j<this.allPatients.length; j++)
+				this.numberOfPatientsBetweenTwoDates += Util.stringToNumber(this.allPatients[i][j]);
+		
+		return this.numberOfPatientsBetweenTwoDates;
 	}
 }
