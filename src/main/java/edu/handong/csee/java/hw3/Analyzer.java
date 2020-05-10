@@ -108,7 +108,18 @@ public class Analyzer
 	
 	public int getNumberOfPatientsBeforeASpecifiedDate(String date)
 	{
+		int index;
+		int i, j;
 		
+		index = Util.findIndex(this.data[0], date);
+		
+		for(i=0; i<this.allPatients.length; i++)
+		{
+			for(j=0; j<index; j++)
+				this.numberOfPatientsBeforeASpecifiedDate += Util.stringToNumber(this.allPatients[i][j]);
+		}
+		
+		return this.numberOfPatientsBeforeASpecifiedDate;
 	}
 	
 	public int getNumberOfPatientsBetweenTwoDates(String date1, String date2)
