@@ -4,7 +4,6 @@ public class Analyzer
 {
 	private String[][] data;
 	private String[] countriesOrRegion;
-	private String[] ProvinceOrState;
 	private String[][] allPatients;
 	private int numberOfCountires;
 	private int numberOfAllPatients;
@@ -33,11 +32,13 @@ public class Analyzer
 	public int getNumberOfCountries()
 	{
 		int index;
-		int i;
+		int i, j;
 		
 		index = Util.findIndex(data[0], "Country/Region");
 		
-		for(i=0; i<data.length; i++)
+		this.countriesOrRegion = new String[data.length];
+		
+		for(i=0; i<data.length-1; i++)
 		{
 			this.countriesOrRegion[i] =  data[i+1][index];
 		}
@@ -48,6 +49,7 @@ public class Analyzer
 				this.numberOfCountires++;
 		}
 		
+	
 		return this.numberOfCountires;
 	}
 	
@@ -57,14 +59,14 @@ public class Analyzer
 		int i, j;
 		
 		index = Util.findIndex(data[0], "1/22/20");
+		System.out.println(data.length + " " + " " + data[0].length +"  " +(data[0].length-index) + " " + index);
+		this.allPatients = new String[data.length][data[0].length-index];
 		
-		this.allPatients = new String[data.length][data[0].length-(data[0].length-index)];
-		
-		for(i=0; i<data.length; i++)
+		for(i=0; i<data.length-1; i++)
 		{
 			for(j=index; j<data[0].length; j++)
 			{
-				this.allPatients[i][j-index] = data[i][j];
+				this.allPatients[i][j-index] = data[i+1][j];
 			}
 		}
 		
