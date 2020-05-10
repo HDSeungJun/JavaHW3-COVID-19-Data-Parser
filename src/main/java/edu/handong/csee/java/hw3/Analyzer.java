@@ -32,7 +32,24 @@ public class Analyzer
 	
 	public int getNumberOfCountries()
 	{
+		int count = 0;
+		int index;
+		int i;
 		
+		index = Util.findIndex(data[0], "Country/Region");
+		
+		for(i=0; i<data.length; i++)
+		{
+			this.countriesOrRegion[i] =  data[i+1][index];
+		}
+		
+		for(i=0; i<data.length-1; i++)
+		{
+			if(this.countriesOrRegion[i] != this.countriesOrRegion[i+1])
+				count++;
+		}
+		
+		return count;
 	}
 	
 	public int getNumberOfAllPatients()
