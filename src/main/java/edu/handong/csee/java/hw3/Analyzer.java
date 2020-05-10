@@ -5,7 +5,7 @@ public class Analyzer
 	private String[][] data;
 	private String[] countriesOrRegion;
 	private String[] ProvinceOrState;
-	private String[][] numberOfPatients;
+	private String[][] allPatients;
 	private int numberOfCountires;
 	private int numberOfAllPatients;
 	private int numberOfPatientsOfACountry;
@@ -32,7 +32,6 @@ public class Analyzer
 	
 	public int getNumberOfCountries()
 	{
-		int count = 0;
 		int index;
 		int i;
 		
@@ -46,40 +45,49 @@ public class Analyzer
 		for(i=0; i<data.length-1; i++)
 		{
 			if(this.countriesOrRegion[i] != this.countriesOrRegion[i+1])
-				count++;
+				this.numberOfCountires++;
 		}
 		
-		return count;
+		return this.numberOfCountires;
 	}
 	
 	public int getNumberOfAllPatients()
 	{
-		int count = 0;
 		int index;
 		int i, j;
 		
 		index = Util.findIndex(data[0], "1/22/20");
 		
-		this.numberOfPatients = new String[data.length][data[0].length-(data[0].length-index)];
+		this.allPatients = new String[data.length][data[0].length-(data[0].length-index)];
 		
 		for(i=0; i<data.length; i++)
 		{
 			for(j=index; j<data[0].length; j++)
 			{
-				this.numberOfPatients[i][j-index] = data[i][j];
+				this.allPatients[i][j-index] = data[i][j];
 			}
 		}
 		
-		for(i=0; i<this.numberOfPatients.length; i++)
-			for(j=0; j<this.numberOfPatients[0].length; j++)
-				count += Util.stringToNumber(this.numberOfPatients[i][j]);
+		for(i=0; i<this.allPatients.length; i++)
+			for(j=0; j<this.allPatients[0].length; j++)
+				this.numberOfAllPatients += Util.stringToNumber(this.allPatients[i][j]);
 		
-		return count;
+		return this.numberOfAllPatients;
 	}
 	
 	public int getNumberOfPatientsOfACountry(String country)
 	{
+		int index;
+		int i;
 		
+		index = Util.findIndex(this.countriesOrRegion, country);
+		
+		for(i=0; i<this.allPatients[0].length; i++)
+		{
+			this.numberOfPatientsOfACountry += Util.stringToNumber(this.allPatients[index][i]);
+		}
+		
+		return this.numberOfPatientsOfACountry;
 	}
 	
 	public int getNumberOfPatientsFromASpecifiedDate(String date)
