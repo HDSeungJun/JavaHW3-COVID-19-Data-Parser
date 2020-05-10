@@ -54,7 +54,27 @@ public class Analyzer
 	
 	public int getNumberOfAllPatients()
 	{
+		int count = 0;
+		int index;
+		int i, j;
 		
+		index = Util.findIndex(data[0], "1/22/20");
+		
+		this.numberOfPatients = new String[data.length][data[0].length-(data[0].length-index)];
+		
+		for(i=0; i<data.length; i++)
+		{
+			for(j=index; j<data[0].length; j++)
+			{
+				this.numberOfPatients[i][j-index] = data[i][j];
+			}
+		}
+		
+		for(i=0; i<this.numberOfPatients.length; i++)
+			for(j=0; j<this.numberOfPatients[0].length; j++)
+				count += Util.stringToNumber(this.numberOfPatients[i][j]);
+		
+		return count;
 	}
 	
 	public int getNumberOfPatientsOfACountry(String country)
