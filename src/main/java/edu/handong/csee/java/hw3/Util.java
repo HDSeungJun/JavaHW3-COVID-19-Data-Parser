@@ -13,7 +13,24 @@ public class Util {
 		for(int i=0; i<str.length; i++)
 		{
 			if(str[i].equals(search))
+			{
 				index = i;
+				break;
+			}
+		}
+		
+		return index;
+	}
+	public static int findLastIndex(String[] str, String search)
+	{
+		int index = 0;
+		
+		for(int i=0; i<str.length; i++)
+		{
+			if(str[i].equals(search))
+			{
+				index = i;
+			}
 		}
 		
 		return index;
