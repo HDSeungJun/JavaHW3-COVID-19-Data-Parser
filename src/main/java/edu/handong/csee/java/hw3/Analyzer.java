@@ -61,13 +61,12 @@ public class Analyzer
 		for(i=1, count = 0; i<data.length-1; i++)
 			if(!data[i][index].equals(data[i+1][index]))
 				count++;
+		this.numberOfCountires = count;
 		
 		this.countriesOrRegion = new String[data.length-1];
 		
 		for(i=0; i<data.length-1; i++)
-			this.countriesOrRegion[i] =  data[i+1][index];
-		
-		this.numberOfCountires = count;
+			this.countriesOrRegion[i] =  data[i+1][index];	
 	
 		return this.numberOfCountires;
 	}
@@ -109,7 +108,7 @@ public class Analyzer
 	public int getNumberOfPatientsFromASpecifiedDate(String date)
 	{
 		int index;
-		int i, j;
+		int i;
 		
 		index = Util.findIndex(this.data[0], date);
 		index -= 4;
@@ -123,7 +122,7 @@ public class Analyzer
 	public int getNumberOfPatientsBeforeASpecifiedDate(String date)
 	{
 		int index;
-		int i, j;
+		int i;
 		
 		index = Util.findIndex(this.data[0], date);
 		index -= 4;
@@ -138,7 +137,7 @@ public class Analyzer
 	{
 		int indexFrom, indexTo;
 		int num1 = 0, num2 = 0;
-		int i, j;
+		int i;
 		
 		indexFrom = Util.findIndex(this.data[0], date1);
 		indexTo = Util.findIndex(data[0], date2);
