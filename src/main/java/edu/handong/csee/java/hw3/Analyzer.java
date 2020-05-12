@@ -53,6 +53,9 @@ public class Analyzer
 				this.data[i] = data[i].split(",");
 		}
 		
+		this.getCountryOrRegion();
+		this.getAllPatients();
+		
 		numberOfCountires = 0;
 		numberOfAllPatients = 0;
 		numberOfPatientsOfACountry = 0;
@@ -99,17 +102,23 @@ public class Analyzer
 	
 	public int getNumberOfCountries()
 	{
-		int index;
-		int i;
-		this.getCountryOrRegion();
+		boolean check = true;
+		int i, j;
 		
-		index = Util.findIndex(data[0], "Country/Region");
-		
-		for(i=0; i<data.length-1; i++)
-		{	
-			if(i >= 1)
-				if(!data[i][index].equals(data[i+1][index]))
-					this.numberOfCountires++;
+		for(i=0; i<this.countryOrRegion.length; i++)
+		{
+			for(j=0; j<i; j++)
+			{	
+				if(this.countryOrRegion[i].equals(this.countryOrRegion[j]))
+				{
+					check = false;
+					break;
+				}
+			}
+			
+			if(check)
+				this.numberOfCountires++;
+			check = true;
 		}
 		
 		return this.numberOfCountires;
@@ -118,7 +127,6 @@ public class Analyzer
 	public int getNumberOfAllPatients()
 	{
 		int i;
-		this.getAllPatients();
 		
 		for(i=0; i<this.allPatients.length-1; i++)
 			this.numberOfAllPatients += Util.stringToNumber(this.allPatients[i][this.allPatients[i].length-1]);
@@ -172,20 +180,10 @@ public class Analyzer
 	
 	public int getNumberOfPatientsBetweenTwoDates(String date1, String date2)
 	{
-		int indexFrom, indexTo;
 		int num1 = 0, num2 = 0;
-		int i;
-		
-		indexFrom = Util.findIndex(this.data[0], date1);
-		indexTo = Util.findIndex(data[0], date2);
-		indexFrom -= 4;
-		indexTo -= 4;
-		
-		for(i=0; i<data.length-1; i++)
-			num1 += Util.stringToNumber(this.allPatients[i][indexFrom-1]);
-		
-		for(i=0; i<data.length-1; i++)
-			num2 += Util.stringToNumber(this.allPatients[i][indexTo]);
+
+		num1 = this.getNumberOfPatientsBeforeASpecifiedDate(date1);
+		num2 = this.getNumberOfPatientsFromASpecifiedDate(date2);
 		
 		this.numberOfPatientsBetweenTwoDates = num2 - num1;
 		
