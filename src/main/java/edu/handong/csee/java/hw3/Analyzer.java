@@ -3,7 +3,7 @@ package edu.handong.csee.java.hw3;
 public class Analyzer 
 {
 	private String[][] data;
-	private String[] countriesOrRegion;
+	private String[] countryOrRegion;
 	private String[][] allPatients;
 	private int numberOfCountires;
 	private int numberOfAllPatients;
@@ -12,6 +12,16 @@ public class Analyzer
 	private int numberOfPatientsBeforeASpecifiedDate;
 	private int numberOfPatientsBetweenTwoDates;
 	
+	public Analyzer()
+	{
+		numberOfCountires = 0;
+		numberOfAllPatients = 0;
+		numberOfPatientsOfACountry = 0;
+		numberOfPatientsFromASpecifiedDate = 0;
+		numberOfPatientsBeforeASpecifiedDate = 0;
+		numberOfPatientsBetweenTwoDates = 0;
+	}
+	
 	public Analyzer(String[] data)
 	{
 		String[] r1, r2;
@@ -19,7 +29,7 @@ public class Analyzer
 		
 		for(int i=0; i<data.length; i++)
 		{
-			if(data[i].contains("Korea, South"))
+			if(data[i].contains(",\""))
 			{
 				r1 = data[i].split("\"");
                 r2 = r1[2].split(",");
@@ -29,10 +39,11 @@ public class Analyzer
                 System.arraycopy(r1, 0, this.data[i], 0, r1.length);
                 System.arraycopy(r2, 1, this.data[i], r1.length-1, r2.length-1);
 			}
-			else if(data[i].contains("Bonaire, Sint Eustatius and Saba"))
+			else if(data[i].contains("\","))
 			{
 				r1 = data[i].split("\"");
                 r2 = r1[2].split(",");
+                
                 this.data[i] = new String[r1.length+r2.length-2];
                 
                 System.arraycopy(r1, 1, this.data[i], 0, r1.length-1);
@@ -50,28 +61,28 @@ public class Analyzer
 		numberOfPatientsBetweenTwoDates = 0;
 	}
 	
-	public int getNumberOfCountries()
+	public String[][] getData()
 	{
-		int index;
-		int count;
-		int i, j;
-		
-		index = Util.findIndex(data[0], "Country/Region");
-		
-		for(i=1, count = 0; i<data.length-1; i++)
-			if(!data[i][index].equals(data[i+1][index]))
-				count++;
-		this.numberOfCountires = count;
-		
-		this.countriesOrRegion = new String[data.length-1];
-		
-		for(i=0; i<data.length-1; i++)
-			this.countriesOrRegion[i] =  data[i+1][index];	
-	
-		return this.numberOfCountires;
+		return this.data;
 	}
 	
-	public int getNumberOfAllPatients()
+	public String[] getCountryOrRegion()
+	{
+		int index;
+		int i;
+		
+		this.countryOrRegion = new String[data.length-1];
+		index = Util.findIndex(data[0], "Country/Region");
+		
+		for(i=0; i<data.length-1; i++)
+		{
+			this.countryOrRegion[i] = data[i+1][index];
+		}
+		
+		return this.countryOrRegion;
+	}
+	
+	public String[][] getAllPatients()
 	{
 		int index;
 		int i, j;
@@ -83,6 +94,32 @@ public class Analyzer
 			for(j=index; j<data[0].length; j++)
 				this.allPatients[i][j-index] = data[i+1][j];
 		
+		return this.allPatients;
+	}
+	
+	public int getNumberOfCountries()
+	{
+		int index;
+		int i;
+		this.getCountryOrRegion();
+		
+		index = Util.findIndex(data[0], "Country/Region");
+		
+		for(i=0; i<data.length-1; i++)
+		{	
+			if(i >= 1)
+				if(!data[i][index].equals(data[i+1][index]))
+					this.numberOfCountires++;
+		}
+		
+		return this.numberOfCountires;
+	}
+	
+	public int getNumberOfAllPatients()
+	{
+		int i;
+		this.getAllPatients();
+		
 		for(i=0; i<this.allPatients.length-1; i++)
 			this.numberOfAllPatients += Util.stringToNumber(this.allPatients[i][this.allPatients[i].length-1]);
 		
@@ -93,8 +130,8 @@ public class Analyzer
 	{
 		int i1, i2;
 		
-		i1 = Util.findIndex(this.countriesOrRegion, country);
-		i2 = Util.findLastIndex(this.countriesOrRegion, country);
+		i1 = Util.findIndex(this.countryOrRegion, country);
+		i2 = Util.findLastIndex(this.countryOrRegion, country);
 		
 		if(i1 == i2)
 			this.numberOfPatientsOfACountry = Util.stringToNumber(this.allPatients[i1][this.allPatients[i1].length-1]);
