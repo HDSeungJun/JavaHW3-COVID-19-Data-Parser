@@ -281,6 +281,14 @@ public class MainRunner {
 		System.out.println("The total number of confirmed patients before a specified date: " + analyzer.getNumberOfPatientsBeforeASpecifiedDate("1/24/20"));
 		System.out.println("The total number of confirmed patients between two dates 1/24/20 (inclusive) and 2/7/20 (inclusive) : " + analyzer.getNumberOfPatientsBetweenTwoDates("1/24/20","2/7/20"));
 	
+		System.out.println();
+		// Additional class : Comparer
+		Comparer comparer = new Comparer(data);
+		
+		// Example method invocation for the Comparer class
+		System.out.println(comparer.compareTheNumberOfPatientsBetweenTwoCountries("Korea, South", "China"));
+		System.out.println(comparer.compareTheNumberOfPatientsBetweenTwoCountriesBeforeSpecifiedDate("1/24/20", "Korea, South", "Japan") + " before 1/24/20");
+		System.out.println(comparer.compareTheNumberOfPatientsBetweenTwoCountriesFromSpecifiedDate("1/24/20", "Korea, South", "Japan") + " from 1/24/20");
 	}
 
 }

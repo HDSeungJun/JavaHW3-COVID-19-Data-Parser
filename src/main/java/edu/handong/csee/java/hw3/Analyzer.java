@@ -145,7 +145,8 @@ public class Analyzer
 			this.numberOfPatientsOfACountry = Util.stringToNumber(this.allPatients[i1][this.allPatients[i1].length-1]);
 		else
 			for(int i=i1; i<=i2; i++)
-				this.numberOfPatientsOfACountry += Util.stringToNumber(this.allPatients[i][this.allPatients[i].length-1]);
+				if(country.equals(this.countryOrRegion[i]))
+					this.numberOfPatientsOfACountry += Util.stringToNumber(this.allPatients[i][this.allPatients[i].length-1]);
 		
 		return this.numberOfPatientsOfACountry;
 	}
@@ -157,7 +158,8 @@ public class Analyzer
 		
 		index = Util.findIndex(this.data[0], date);
 		index -= 4;
-		
+
+		this.numberOfPatientsFromASpecifiedDate = 0;
 		for(i=0; i<this.allPatients.length-1; i++)
 			this.numberOfPatientsFromASpecifiedDate += Util.stringToNumber(this.allPatients[i][index]);
 		
@@ -166,14 +168,11 @@ public class Analyzer
 	
 	public int getNumberOfPatientsBeforeASpecifiedDate(String date)
 	{
-		int index;
-		int i;
-		
-		index = Util.findIndex(this.data[0], date);
-		index -= 4;
-		
-		for(i=0; i<this.allPatients.length-1; i++)
-			this.numberOfPatientsBeforeASpecifiedDate += Util.stringToNumber(this.allPatients[i][index-1]);
+		String[] newDate = date.split("/");
+		newDate[1] = Integer.toString(Util.stringToNumber(newDate[1])-1);
+		String nDate = newDate[0] + "/" + newDate[1] + "/" + newDate[2];
+	
+		this.numberOfPatientsBeforeASpecifiedDate = this.getNumberOfPatientsFromASpecifiedDate(nDate);
 		
 		return this.numberOfPatientsBeforeASpecifiedDate;
 	}
