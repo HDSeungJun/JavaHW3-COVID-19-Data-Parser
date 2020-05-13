@@ -142,26 +142,23 @@ public class Analyzer
 	
 	public int getNumberOfPatientsFromASpecifiedDate(String date)
 	{
-		int index;
-		int i;
-		this.numberOfPatientsFromASpecifiedDate = 0;
-		
-		index = Util.findIndex(this.data[0], date);
-		index -= 4;
-
-		for(i=0; i<this.allPatients.length-1; i++)
-			this.numberOfPatientsFromASpecifiedDate += Util.stringToNumber(this.allPatients[i][index]);
+		this.numberOfPatientsBeforeASpecifiedDate = this.getNumberOfPatientsBeforeASpecifiedDate(date);
+		this.numberOfPatientsFromASpecifiedDate = this.numberOfAllPatients - this.numberOfPatientsBeforeASpecifiedDate;
 		
 		return this.numberOfPatientsFromASpecifiedDate;
 	}
 	
 	public int getNumberOfPatientsBeforeASpecifiedDate(String date)
 	{
-		String[] newDate = date.split("/");
-		newDate[1] = Integer.toString(Util.stringToNumber(newDate[1])-1);
-		String nDate = newDate[0] + "/" + newDate[1] + "/" + newDate[2];
-	
-		this.numberOfPatientsBeforeASpecifiedDate = this.getNumberOfPatientsFromASpecifiedDate(nDate);
+		int index;
+		int i;
+		this.numberOfPatientsBeforeASpecifiedDate = 0;
+		
+		index = Util.findIndex(this.data[0], date);
+		index -= 4;
+
+		for(i=0; i<this.allPatients.length-1; i++)
+			this.numberOfPatientsBeforeASpecifiedDate += Util.stringToNumber(this.allPatients[i][index-1]);
 		
 		return this.numberOfPatientsBeforeASpecifiedDate;
 	}
@@ -169,11 +166,17 @@ public class Analyzer
 	public int getNumberOfPatientsBetweenTwoDates(String date1, String date2)
 	{
 		int num1 = 0, num2 = 0;
-
-		num1 = this.getNumberOfPatientsBeforeASpecifiedDate(date1);
-		num2 = this.getNumberOfPatientsFromASpecifiedDate(date2);
 		
-		this.numberOfPatientsBetweenTwoDates = num2 - num1;
+		String[] nDate = date2.split("/");
+		nDate[1] = Integer.toString((Util.stringToNumber(nDate[1])+1));
+		
+		String newDate = nDate[0]+"/"+nDate[1]+"/"+nDate[2];
+
+		num1 = this.getNumberOfPatientsFromASpecifiedDate(date1);
+		num2 = this.getNumberOfPatientsBeforeASpecifiedDate(newDate);
+		
+		
+		this.numberOfPatientsBetweenTwoDates = num1 - num2;
 		
 		return this.numberOfPatientsBetweenTwoDates;
 	}

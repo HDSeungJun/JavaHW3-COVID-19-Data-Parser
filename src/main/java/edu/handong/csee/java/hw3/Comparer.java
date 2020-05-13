@@ -36,12 +36,36 @@ public class Comparer extends Analyzer
 
 	public String compareTheNumberOfPatientsBetweenTwoCountriesFromASpecifiedDate(String date, String country1, String country2)
 	{
+		int temp1, temp2;
+		
+		this.compareTheNumberOfPatientsBetweenTwoCountries(country1, country2);
+		temp1 = this.resultOfFirstCountry;
+		temp2 = this.resultOfSecondCountry;
+		
+		this.compareTheNumberOfPatientsBetweenTwoCountriesBeforeASpecifiedDate(date, country1, country2);
+		
+		this.resultOfFirstCountry = temp1 - this.resultOfFirstCountry;
+		this.resultOfSecondCountry = temp2 - this.resultOfSecondCountry;
+	
+		if(this.resultOfFirstCountry == this.resultOfSecondCountry)
+			result = "Both countries are same (" + this.resultOfFirstCountry + ')';
+		else if(this.resultOfFirstCountry > this.resultOfSecondCountry)
+			result = country1 +"(" + this.resultOfFirstCountry + ")" + " has more confirmed patients than " + country2 +"(" + this.resultOfSecondCountry + ")";
+		else
+			result = country2 +"(" + this.resultOfSecondCountry + ")" + " has more confirmed patients than " + country1 +"(" + this.resultOfFirstCountry + ")";		
+		
+		return result;
+	}
+	
+	public String compareTheNumberOfPatientsBetweenTwoCountriesBeforeASpecifiedDate(String date, String country1, String country2)
+	{
 		int dateIndex, country1Index1, country1Index2, country2Index1, country2Index2;
 		this.resultOfFirstCountry = 0;
 		this.resultOfSecondCountry = 0;
 		
 		dateIndex = Util.findIndex(super.data[0], date);
 		dateIndex -= 4;
+		dateIndex--;
 		
 		country1Index1 = Util.findIndex(super.countryOrRegion, country1);
 		country1Index2 = Util.findLastIndex(super.countryOrRegion, country1);
@@ -70,14 +94,5 @@ public class Comparer extends Analyzer
 		else
 			result = country2 +"(" + this.resultOfSecondCountry + ")" + " has more confirmed patients than " + country1 +"(" + this.resultOfFirstCountry + ")";		
 		return result;
-	}
-	
-	public String compareTheNumberOfPatientsBetweenTwoCountriesBeforeASpecifiedDate(String date, String country1, String country2)
-	{
-		String[] newDate = date.split("/");
-		newDate[1] = Integer.toString(Util.stringToNumber(newDate[1])-1);
-		String nDate = newDate[0] + "/" + newDate[1] + "/" + newDate[2];
-		
-		return this.compareTheNumberOfPatientsBetweenTwoCountriesFromASpecifiedDate(nDate, country1, country2);
 	}
 }
