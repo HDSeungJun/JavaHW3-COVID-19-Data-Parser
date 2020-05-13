@@ -287,8 +287,8 @@ public class MainRunner {
 		
 		// Example method invocation for the Comparer class
 		System.out.println(comparer.compareTheNumberOfPatientsBetweenTwoCountries("Korea, South", "China"));
-		System.out.println(comparer.compareTheNumberOfPatientsBetweenTwoCountriesBeforeSpecifiedDate("1/24/20", "Korea, South", "Japan") + " before 1/24/20");
-		System.out.println(comparer.compareTheNumberOfPatientsBetweenTwoCountriesFromSpecifiedDate("1/24/20", "Korea, South", "Japan") + " from 1/24/20");
+		System.out.println(comparer.compareTheNumberOfPatientsBetweenTwoCountriesBeforeASpecifiedDate("1/24/20", "Korea, South", "Japan") + " before 1/24/20");
+		System.out.println(comparer.compareTheNumberOfPatientsBetweenTwoCountriesFromASpecifiedDate("1/24/20", "Korea, South", "Japan") + " from 1/24/20");
 	}
 
 }

@@ -42,7 +42,7 @@ public class Comparer extends Analyzer
 		return result;
 	}
 
-	public String compareTheNumberOfPatientsBetweenTwoCountriesFromSpecifiedDate(String date, String country1, String country2)
+	public String compareTheNumberOfPatientsBetweenTwoCountriesFromASpecifiedDate(String date, String country1, String country2)
 	{
 		int dateIndex, country1Index1, country1Index2, country2Index1, country2Index2;
 		this.resultOfFirstCountry = 0;
@@ -80,12 +80,12 @@ public class Comparer extends Analyzer
 		return result;
 	}
 	
-	public String compareTheNumberOfPatientsBetweenTwoCountriesBeforeSpecifiedDate(String date, String country1, String country2)
+	public String compareTheNumberOfPatientsBetweenTwoCountriesBeforeASpecifiedDate(String date, String country1, String country2)
 	{
 		String[] newDate = date.split("/");
 		newDate[1] = Integer.toString(Util.stringToNumber(newDate[1])-1);
 		String nDate = newDate[0] + "/" + newDate[1] + "/" + newDate[2];
 		
-		return this.compareTheNumberOfPatientsBetweenTwoCountriesFromSpecifiedDate(nDate, country1, country2);
+		return this.compareTheNumberOfPatientsBetweenTwoCountriesFromASpecifiedDate(nDate, country1, country2);
 	}
 }
