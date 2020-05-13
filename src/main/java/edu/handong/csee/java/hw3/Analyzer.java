@@ -70,6 +70,7 @@ public class Analyzer
 		int index;
 		boolean check = true;
 		int i, j;
+		this.numberOfCountires = 0;
 		
 		this.countryOrRegion = new String[data.length-1];
 		index = Util.findIndex(data[0], "Country/Region");
@@ -102,6 +103,7 @@ public class Analyzer
 	{
 		int index;
 		int i, j;
+		this.numberOfAllPatients = 0;
 
 		index = Util.findIndex(data[0], "1/22/20");
 		this.allPatients = new String[data.length][data[0].length-index];
