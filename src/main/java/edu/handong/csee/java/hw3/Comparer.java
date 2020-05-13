@@ -5,6 +5,7 @@ public class Comparer extends Analyzer
 	private int resultOfFirstCountry;
 	private int resultOfSecondCountry;
 	private String result;
+	
 	public Comparer()
 	{
 		super();
@@ -23,15 +24,8 @@ public class Comparer extends Analyzer
 	{	
 		this.resultOfFirstCountry = super.getNumberOfPatientsOfACountry(country1);
 		this.resultOfSecondCountry = super.getNumberOfPatientsOfACountry(country2);
-		
-		if(this.resultOfFirstCountry == this.resultOfSecondCountry)
-			result = "Both countries are same (" + this.resultOfFirstCountry + ')';
-		else if(this.resultOfFirstCountry > this.resultOfSecondCountry)
-			result = country1 +"(" + this.resultOfFirstCountry + ")" + " has more confirmed patients than " + country2 +"(" + this.resultOfSecondCountry + ")";
-		else
-			result = country2 +"(" + this.resultOfSecondCountry + ")" + " has more confirmed patients than " + country1 +"(" + this.resultOfFirstCountry + ")";		
-		
-		return result;
+
+		return this.setResult(country1, country2);
 	}
 
 	public String compareTheNumberOfPatientsBetweenTwoCountriesFromASpecifiedDate(String date, String country1, String country2)
@@ -46,15 +40,8 @@ public class Comparer extends Analyzer
 		
 		this.resultOfFirstCountry = temp1 - this.resultOfFirstCountry;
 		this.resultOfSecondCountry = temp2 - this.resultOfSecondCountry;
-	
-		if(this.resultOfFirstCountry == this.resultOfSecondCountry)
-			result = "Both countries are same (" + this.resultOfFirstCountry + ')';
-		else if(this.resultOfFirstCountry > this.resultOfSecondCountry)
-			result = country1 +"(" + this.resultOfFirstCountry + ")" + " has more confirmed patients than " + country2 +"(" + this.resultOfSecondCountry + ")";
-		else
-			result = country2 +"(" + this.resultOfSecondCountry + ")" + " has more confirmed patients than " + country1 +"(" + this.resultOfFirstCountry + ")";		
-		
-		return result;
+
+		return this.setResult(country1, country2);
 	}
 	
 	public String compareTheNumberOfPatientsBetweenTwoCountriesBeforeASpecifiedDate(String date, String country1, String country2)
@@ -87,6 +74,11 @@ public class Comparer extends Analyzer
 				if(country2.equals(super.countryOrRegion[i]))
 					this.resultOfSecondCountry += Util.stringToNumber(super.allPatients[i][dateIndex]);
 		
+		return this.setResult(country1, country2);
+	}
+	
+	private String setResult(String country1, String country2)
+	{
 		if(this.resultOfFirstCountry == this.resultOfSecondCountry)
 			result = "Both countries are same(" + this.resultOfFirstCountry + ')';
 		else if(this.resultOfFirstCountry > this.resultOfSecondCountry)

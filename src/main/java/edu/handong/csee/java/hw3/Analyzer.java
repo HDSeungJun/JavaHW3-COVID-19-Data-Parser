@@ -175,7 +175,6 @@ public class Analyzer
 		num1 = this.getNumberOfPatientsFromASpecifiedDate(date1);
 		num2 = this.getNumberOfPatientsBeforeASpecifiedDate(newDate);
 		
-		
 		this.numberOfPatientsBetweenTwoDates = num1 - num2;
 		
 		return this.numberOfPatientsBetweenTwoDates;
