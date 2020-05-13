@@ -282,6 +282,7 @@ public class MainRunner {
 		System.out.println("The total number of confirmed patients between two dates 1/24/20 (inclusive) and 2/7/20 (inclusive) : " + analyzer.getNumberOfPatientsBetweenTwoDates("1/24/20","2/7/20"));
 	
 		System.out.println();
+		
 		// Additional class : Comparer
 		Comparer comparer = new Comparer(data);
 		
