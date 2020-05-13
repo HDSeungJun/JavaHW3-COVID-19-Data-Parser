@@ -11,6 +11,7 @@ public class Comparer extends Analyzer
 	
 	public Comparer()
 	{
+		super();
 		this.resultOfFirstCountry = 0;
 		this.resultOfSecondCountry = 0;
 	}
@@ -44,6 +45,8 @@ public class Comparer extends Analyzer
 	public String compareTheNumberOfPatientsBetweenTwoCountriesFromSpecifiedDate(String date, String country1, String country2)
 	{
 		int dateIndex, country1Index1, country1Index2, country2Index1, country2Index2;
+		this.resultOfFirstCountry = 0;
+		this.resultOfSecondCountry = 0;
 		
 		dateIndex = Util.findIndex(this.data[0], date);
 		dateIndex -= 4;
@@ -53,9 +56,6 @@ public class Comparer extends Analyzer
 		
 		country2Index1 = Util.findIndex(this.countryOrRegion, country2);
 		country2Index2 = Util.findLastIndex(this.countryOrRegion, country2);
-		
-		this.resultOfFirstCountry = 0;
-		this.resultOfSecondCountry = 0;
 		
 		if(country1Index1 == country1Index2)
 			this.resultOfFirstCountry = Util.stringToNumber(this.allPatients[country1Index1][dateIndex]);

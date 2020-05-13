@@ -56,12 +56,12 @@ public class Analyzer
 		this.getCountryOrRegion();
 		this.getAllPatients();
 		
-		numberOfCountires = 0;
-		numberOfAllPatients = 0;
-		numberOfPatientsOfACountry = 0;
-		numberOfPatientsFromASpecifiedDate = 0;
-		numberOfPatientsBeforeASpecifiedDate = 0;
-		numberOfPatientsBetweenTwoDates = 0;
+		this.numberOfCountires = 0;
+		this.numberOfAllPatients = 0;
+		this.numberOfPatientsOfACountry = 0;
+		this.numberOfPatientsFromASpecifiedDate = 0;
+		this.numberOfPatientsBeforeASpecifiedDate = 0;
+		this.numberOfPatientsBetweenTwoDates = 0;
 	}
 	
 	public String[][] getData()
@@ -137,6 +137,7 @@ public class Analyzer
 	public int getNumberOfPatientsOfACountry(String country)
 	{
 		int i1, i2;
+		this.numberOfPatientsOfACountry = 0;
 		
 		i1 = Util.findIndex(this.countryOrRegion, country);
 		i2 = Util.findLastIndex(this.countryOrRegion, country);
@@ -145,9 +146,13 @@ public class Analyzer
 			this.numberOfPatientsOfACountry = Util.stringToNumber(this.allPatients[i1][this.allPatients[i1].length-1]);
 		else
 			for(int i=i1; i<=i2; i++)
+			{
 				if(country.equals(this.countryOrRegion[i]))
+				{
 					this.numberOfPatientsOfACountry += Util.stringToNumber(this.allPatients[i][this.allPatients[i].length-1]);
-		
+					//System.out.println(this.countryOrRegion[i] + " " + this.numberOfPatientsOfACountry);
+				}
+			}
 		return this.numberOfPatientsOfACountry;
 	}
 	
@@ -155,11 +160,11 @@ public class Analyzer
 	{
 		int index;
 		int i;
+		this.numberOfPatientsFromASpecifiedDate = 0;
 		
 		index = Util.findIndex(this.data[0], date);
 		index -= 4;
 
-		this.numberOfPatientsFromASpecifiedDate = 0;
 		for(i=0; i<this.allPatients.length-1; i++)
 			this.numberOfPatientsFromASpecifiedDate += Util.stringToNumber(this.allPatients[i][index]);
 		
