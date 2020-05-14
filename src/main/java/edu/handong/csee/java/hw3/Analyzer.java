@@ -66,7 +66,6 @@ public class Analyzer
 	
 	public int getNumberOfCountries()
 	{
-		
 		int index;
 		boolean check = true;
 		int i, j;

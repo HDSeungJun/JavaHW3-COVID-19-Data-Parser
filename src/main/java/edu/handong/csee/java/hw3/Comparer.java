@@ -85,6 +85,7 @@ public class Comparer extends Analyzer
 			result = country1 +"(" + this.resultOfFirstCountry + ")" + " has more confirmed patients than " + country2 +"(" + this.resultOfSecondCountry + ")";
 		else
 			result = country2 +"(" + this.resultOfSecondCountry + ")" + " has more confirmed patients than " + country1 +"(" + this.resultOfFirstCountry + ")";		
+		
 		return result;
 	}
 }

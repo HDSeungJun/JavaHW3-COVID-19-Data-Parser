@@ -1,6 +1,7 @@
 package edu.handong.csee.java.hw3;
 
 public class Util {
+	
 	public static int stringToNumber(String str)
 	{
 		return Integer.parseInt(str);
@@ -21,6 +22,7 @@ public class Util {
 		
 		return index;
 	}
+	
 	public static int findLastIndex(String[] str, String search)
 	{
 		int index = 0;
