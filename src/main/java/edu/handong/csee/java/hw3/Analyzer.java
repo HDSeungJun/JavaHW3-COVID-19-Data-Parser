@@ -172,7 +172,7 @@ public class Analyzer
 		String newDate = nDate[0]+"/"+nDate[1]+"/"+nDate[2];
 
 		num1 = this.getNumberOfPatientsFromASpecifiedDate(date1);
-		num2 = this.getNumberOfPatientsBeforeASpecifiedDate(newDate);
+		num2 = this.getNumberOfPatientsFromASpecifiedDate(newDate);
 		
 		this.numberOfPatientsBetweenTwoDates = num1 - num2;
 		
